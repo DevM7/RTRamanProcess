@@ -474,7 +474,7 @@ end
                 SelectedFiles = BGTable.Data(cell2mat(BGTable.Data(:,1)),5);
                 for i = 1:size(SelectedFiles,1)
                     OneFile = importdata(fullfile(BGTableDirectory,char(SelectedFiles(i,1))));
-                    BGs(:,i) = OneFile.BGSpectrum;
+                    BGs(:,i) = OneFile.Spectrum;
                 end
                 writecell(SelectedFiles',[Path Filename],'sheet','Background Spectra','range','B1');
                 writematrix(BGs,[Path Filename],'sheet','Background Spectra','range','B2');
@@ -693,10 +693,14 @@ end
         % Package BGSpectrum to correct folder 
         CurrentTime = char(datetime);
         CurrentTime = strrep(CurrentTime,':', '-');
-        OneBackground = struct('BGSpectrum',BGSpec,...
+        OneBackground = struct('Spectrum',BGSpec,...
                                'Date',CurrentTime,...
                                'Integration',IntegrationTime.Value,...
-                               'Scan2Average',Scan2Average.Value);
+                               'Scan2Average',Scan2Average.Value,...
+                               'PatientID',['void'],...
+                               'SessionNumber',['void'],...
+                               'SessionName',['void']);
+        
         SavingDirectory = [BGTableDirectory '/' CurrentTime];
         save(SavingDirectory,'OneBackground');
         
@@ -947,7 +951,7 @@ end
                 end
                 addStyle(BGTable,SelectedBG,'cell',[event.Indices(1,1),2]);
                 OneFile = importdata(fullfile(BGTableDirectory,char(BGTable.Data(event.Indices(1,1),5))));
-                BGSpec = OneFile.BGSpectrum;
+                BGSpec = OneFile.Spectrum;
                 plot(Raw,Wavelength,BGSpec,'Tag',Tag );
                 PlottedBG.FontColor = findobj(Raw.Children,'Tag',Tag).Color;
                 addStyle(BGTable,PlottedBG,'row',event.Indices(1,1));
@@ -971,7 +975,7 @@ end
                         removeStyle(BGTable,Temp);
                         FirstSelected = find(cell2mat(BGTable.Data(:,1)),1);
                         OneFile = importdata(fullfile(BGTableDirectory,char(BGTable.Data(FirstSelected,5))));
-                        BGSpec = OneFile.BGSpectrum;
+                        BGSpec = OneFile.Spectrum;
                         addStyle(BGTable,SelectedBG,'cell',[FirstSelected,2]);
                     end
                 end
@@ -997,7 +1001,7 @@ end
                 BGTable.Data(:,1) = {false};
                 BGTable.Data(event.Indices(1,1),1) = {true};
                 OneFile = importdata(fullfile(BGTableDirectory,char(BGTable.Data(event.Indices(1,1),5))));
-                BGSpec = OneFile.BGSpectrum;
+                BGSpec = OneFile.Spectrum;
                 ObtainBackground.Text = 'Background Obtained';
                 ObtainBackground.BackgroundColor = 'r';
                 ObtainBackground.Enable = 'off';
