@@ -1,4 +1,4 @@
-% Import Text Files
+% Import Raw Text Files
 InputPath = uigetdir;
 Files = dir([InputPath '/*.txt']);
 OutputPath = uigetdir(pwd);
