@@ -1,7 +1,11 @@
 % Import Background
 [BG,BGPath] = uigetfile('*.txt','Please Select Background');
-Background = importdata(fullfile(BGPath,BG)); % fullfile including path
-Background = Background.data(:,2);
+if BG == 0 % selection cancel
+    BG = zeros(1044,1);
+else
+   Background = importdata(fullfile(BGPath,BG)); % fullfile including path
+   Background = Background.data(:,2); 
+end
 
 % Import Raw Spectrum
 [RawFile,SpecPath] = uigetfile('*.txt','Select the files of interest');
