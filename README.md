@@ -8,4 +8,10 @@ Here are a few steps need to run this code:
 4. If encounter error, go to matlab's library path (example: C:\Program Files\MATLAB\R2021a\toolbox\local\librarypath.txt) and manually add the directory of your omnidriver directory into librarypath.txt (example: C:\Program Files\Ocean Optics\OmniDriver\OOI_HOME) 
 5. Restart MATLAB and run again. 
 
+For converting text file data from oceanview: 
+1. Run "RTRamanProcess_Text2Mat.m"
+2. In the first ui window, select a folder contains the text files
+3. In the second ui window, select a directory where to place the .mat files
+4. To view the .mat files in gui, please have output .mat files in the "Saved Spectrum" folder.
+
 For any questions, please email andyzjc@Bu.edu. Have fun : ) 
