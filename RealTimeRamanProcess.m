@@ -80,7 +80,7 @@ for Initialization = 1
         Highwave.Title.String = 'Highwave Normalized';
         Highwave.XLabel.String = 'Raman Shift (cm^-1)';
         Highwave.YLabel.String = 'A.U';
-        Highwave.XLim = [2895 3805];
+        Highwave.XLim = [2595 3805];
         Highwave.YLim = [0 inf];
         Highwave.Toolbar.Visible = 'off';
         Highwave.XGrid = 'on';
@@ -499,13 +499,15 @@ end
                 end
                 % Output Spectrum parameters
                 SelectedFiles = AnaTable.Data(cell2mat(AnaTable.Data(:,1)),5);
-                CompositionMatrix = [];
-                CompositionCell = {};
-                CompositionFile = cell(1,length(SelectedFiles)*length(nonzeros(cell2mat(ComponentTable.Data(:,1)) == 1)));
                 DateMatrix = cell(1,length(SelectedFiles));
                 PatientIDMatrix = cell(1,length(SelectedFiles));
                 SessionNumberMatrix = cell(1,length(SelectedFiles));
                 SessionNameMatrix = cell(1,length(SelectedFiles));
+                if RTComposition.Value == 1
+                    CompositionMatrix = [];
+                    CompositionCell = {};
+                    CompositionFile = cell(1,length(SelectedFiles)*length(nonzeros(cell2mat(ComponentTable.Data(:,1)) == 1)));
+                end
                 for i = 1:size(SelectedFiles,1)
                     OneFile = importdata(fullfile(AnaTableDirectory,char(SelectedFiles(i,1))));
                     RawSpectra(:,i) = OneFile.Spectrum;
